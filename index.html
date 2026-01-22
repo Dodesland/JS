@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Click Quest</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Click Quest</h1>
+
+    <section>
+        <div>Total XP: <strong id="score">0</strong></div>
+        <div>¥: <strong id="coins">0</strong></div>
+        <div>Click Dmg: <strong id="clickPower">1</strong></div>
+        <div>Effectiveness: <strong id="multiplier">1.00</strong></div>
+        <div>Y/s: <strong id="autoIncome">0</strong> /s</div>
+        <div>Level: <strong id="levelXp">1 (0 / 100)</strong></div>
+        <div>Buffs: <span id="effects"></span></div>
+    </section>
+
+    <div id="event-icons"></div>
+
+    <button id="clickBtn">CLICK</button>
+    <button id="saveBtn">Save</button>
+    <button id="loadBtn">Load</button>
+    <button id="resetBtn">Reset</button>
+
+    <h2>PokeMart</h2>
+    <div id="shop"></div>
+
+    <h2>Trainer Tasks</h2>
+    <div id="quests"></div>
+
+    <h2>Bag</h2>
+    <div id="inventory"></div>
+
+    <details>
+        <summary>Log</summary>
+        <div id="log"></div>
+    </details>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

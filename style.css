@@ -1,0 +1,330 @@
+:root {
+    --poke-red: #DC0A2D;
+    --poke-dark-red: #8B0000;
+    --poke-blue: #28AAFD;
+    --poke-yellow: #FFDE00;
+    --poke-green: #51AE5F;
+    --screen-bg: #98CB98;
+    /* Gameboy-ish green */
+    --text-dark: #202020;
+    --border-color: #404040;
+}
+
+html {
+    background-image: url('assets/route_bg.png');
+    background-size: 800px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: calc(50% + 220px) top;
+    image-rendering: pixelated;
+}
+
+body {
+    font-family: "Press Start 2P", cursive;
+    background-color: var(--poke-red);
+    color: var(--text-dark);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border-left: 10px solid var(--poke-dark-red);
+    border-right: 10px solid var(--poke-dark-red);
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+    text-shadow: 4px 4px 0 #000;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* Main Display Screen */
+section {
+    background: var(--screen-bg);
+    border: 4px solid #505050;
+    border-radius: 10px 10px 30px 10px;
+    padding: 20px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+section div {
+    margin-bottom: 5px;
+}
+
+strong {
+    color: #000;
+}
+
+/* Buttons */
+button {
+    font-family: "Press Start 2P", cursive;
+    background: #f8f8f8;
+    border: 4px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 10px;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s;
+}
+
+button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+#clickBtn {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    background: var(--poke-yellow);
+    border-color: #B8860B;
+    color: #000;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Shop (PokeMart) */
+#shop {
+    background: #fff;
+    border: 4px solid var(--poke-blue);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px dashed #ccc;
+    font-size: 10px;
+}
+
+.shop-item:last-child {
+    border-bottom: none;
+}
+
+.shop-item button {
+    background: var(--poke-blue);
+    color: #fff;
+    border-color: #0056b3;
+}
+
+.shop-item button:disabled {
+    background: #ccc;
+    border-color: #999;
+    color: #666;
+}
+
+/* Trainers Tasks (Quests) */
+#quests {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quest {
+    background: #fff;
+    border: 2px solid var(--text-dark);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    /* To push button to right */
+    align-items: center;
+}
+
+.quest.completed {
+    background: #FFFACD;
+    border-color: gold;
+}
+
+.quest.claimed {
+    opacity: 0.5;
+    background: #ddd;
+}
+
+/* Bag (Inventory) */
+#inventory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #fff;
+    border: 4px solid var(--poke-green);
+    padding: 10px;
+    min-height: 50px;
+}
+
+.inv-item {
+    background: #eee;
+    border: 2px solid #aaa;
+    padding: 8px;
+    border-radius: 50%;
+    /* Pokeball shape-ish */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.inv-item:hover {
+    background: #fff;
+    border-color: var(--poke-red);
+}
+
+/* Logs */
+details {
+    background: #222;
+    color: #0f0;
+    /* Terminal look */
+    border: 4px solid #555;
+    padding: 10px;
+    font-family: monospace;
+    /* Keep log readable */
+}
+
+summary {
+    color: #fff;
+    cursor: pointer;
+}
+
+#log {
+    max-height: 150px;
+    overflow-y: auto;
+    font-size: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    /* Keep newest at bottom visually for log consistency */
+    border-top: 1px dashed #444;
+    padding-top: 5px;
+}
+
+#log div {
+    margin-bottom: 2px;
+}
+
+/* Animations */
+@keyframes flash {
+    0% {
+        background-color: white;
+    }
+
+    100% {
+        background-color: var(--screen-bg);
+    }
+}
+
+.flash {
+    animation: flash 0.2s;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border: 1px solid #555;
+}
+
+/* Event Icons */
+#event-icons {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.event-icon-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-icon {
+    font-size: 30px;
+    background: white;
+    padding: 10px;
+    border-radius: 50%;
+    border: 3px solid var(--poke-dark-red);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: iconPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.event-label {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--poke-yellow);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    border: 2px solid white;
+    animation: iconPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes iconPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.event-icon.fade-out {
+    animation: iconFadeOut 0.5s forwards;
+}
+
+@keyframes iconFadeOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
