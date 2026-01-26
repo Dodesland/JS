@@ -1,330 +1,454 @@
+/**
+ * Pokedex-3 Aesthetic Refinement (Compact Edition)
+ * - Compact layout for gadget feel
+ * - Premium 3D hardware buttons
+ * - Refined spacing and typography
+ */
+
 :root {
     --poke-red: #DC0A2D;
-    --poke-dark-red: #8B0000;
+    --poke-red-light: #FF4D4D;
+    --poke-red-dark: #8B0000;
     --poke-blue: #28AAFD;
-    --poke-yellow: #FFDE00;
+    --poke-yellow: #FFCB05;
     --poke-green: #51AE5F;
     --screen-bg: #98CB98;
-    /* Gameboy-ish green */
     --text-dark: #202020;
-    --border-color: #404040;
+    --border-main: #333333;
+    --pokedex-shadow: inset -3px -3px 0px 0px rgba(0, 0, 0, 0.2), inset 3px 3px 0px 0px rgba(255, 255, 255, 0.2);
+}
+
+/* --- BASE & LAYOUT --- */
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
 }
 
 html {
-    background-image: url('assets/route_bg.png');
-    background-size: 800px;
-    background-repeat: repeat;
-    background-attachment: fixed;
-    background-position: calc(50% + 220px) top;
-    image-rendering: pixelated;
+    height: 100%;
+    margin: 0;
 }
 
 body {
     font-family: "Press Start 2P", cursive;
-    background-color: var(--poke-red);
     color: var(--text-dark);
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-    border-left: 10px solid var(--poke-dark-red);
-    border-right: 10px solid var(--poke-dark-red);
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
+    /* --- Sidebar-Anchored Background (No Gaps) --- */
+    background-color: #4caf50;
+    background-image: url('assets/ChatGPT%20Image%2026%20janv.%202026,%2015_11_28.png');
+    background-size: calc(100% - 320px) 100vh;
+    /* Fill until sidebar */
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    image-rendering: auto;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#game-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding: 30px;
+    width: 100%;
+    position: relative;
+    /* Base for power button */
+}
+
+/* --- MAIN POKEDEX CASE --- */
+main {
+    flex: 0 1 850px;
+    background: linear-gradient(135deg, var(--poke-red-light) 0%, var(--poke-red) 70%, var(--poke-red-dark) 100%);
+    padding: 50px 30px 40px 30px;
+    position: relative;
+    z-index: 10;
+    border-radius: 30px 30px 80px 30px;
+    border: 5px solid var(--poke-red-dark);
+    box-shadow: var(--pokedex-shadow), 10px 10px 30px rgba(0, 0, 0, 0.4);
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: top left;
+}
+
+/* Power Off State */
+main.pokedex-off {
+    min-height: 0;
+    height: 0;
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: scale(0);
+}
+
+#pokedex-power-btn {
+    position: absolute;
+    top: 15px;
+    left: 115px;
+    /* Aligned with main corner */
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 30% 30%, #5ce1ff, var(--poke-blue));
+    border: 5px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 100;
+    /* Always stay on top */
+    transition: all 0.2s;
+}
+
+#pokedex-power-btn:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+#pokedex-power-btn:active {
+    transform: scale(0.9);
+}
+
+main::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 50px;
+    width: 60px;
+    height: 10px;
+    background: linear-gradient(to right, #ff4d4d, var(--poke-green), var(--poke-yellow));
+    border-radius: 8px;
+    border: 2px solid var(--poke-red-dark);
+}
+
+/* --- NAVIGATION --- */
+#pokedex-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.nav-btn {
+    background: #555;
+    color: #fff;
+    border: none;
+    border-bottom: 4px solid #222;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 8px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-transform: uppercase;
+}
+
+.nav-btn:active {
+    transform: translateY(2px);
+    border-bottom-width: 1px;
+    margin-top: 3px;
+}
+
+.nav-btn.active {
+    background: var(--poke-blue);
+    border-bottom-color: #0d47a1;
+    color: #fff;
 }
 
 h1 {
-    text-align: center;
-    color: #fff;
-    text-shadow: 4px 4px 0 #000;
-    font-size: 24px;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-}
-
-h2 {
-    font-size: 16px;
-    margin-top: 20px;
+    text-align: left;
     color: #fff;
     text-shadow: 2px 2px 0 #000;
-}
-
-/* Main Display Screen */
-section {
-    background: var(--screen-bg);
-    border: 4px solid #505050;
-    border-radius: 10px 10px 30px 10px;
-    padding: 20px;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
     margin-bottom: 20px;
+}
+
+/* --- SCREENS --- */
+.pokedex-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#stats-screen {
+    background: var(--screen-bg);
+    border: 5px solid #333;
+    border-radius: 12px 12px 40px 12px;
+    padding: 20px;
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 25px;
     font-size: 12px;
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
-section div {
-    margin-bottom: 5px;
+/* --- COLLECTION GRID --- */
+#pokemon-collection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 12px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
-strong {
-    color: #000;
-}
-
-/* Buttons */
-button {
-    font-family: "Press Start 2P", cursive;
-    background: #f8f8f8;
-    border: 4px solid var(--border-color);
-    border-radius: 4px;
-    padding: 10px 15px;
-    font-size: 10px;
+.collection-item {
+    background: #fff;
+    border: 3px solid var(--border-main);
+    border-radius: 12px;
+    padding: 8px;
     cursor: pointer;
-    margin: 5px;
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-button:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+.collection-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.collection-item .peek-sprite {
+    width: 60px;
+    height: 60px;
+    image-rendering: pixelated;
+}
+
+/* --- 3D BUTTONS SYSTEM --- */
+button {
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.1s;
+    border: none;
+}
+
+.btn-3d {
+    background: #eee;
+    color: #333;
+    border-bottom: 5px solid #bbb;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 10px;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 0;
+}
+
+.btn-3d:active {
+    top: 3px;
+    border-bottom-width: 2px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 #clickBtn {
-    display: block;
     width: 100%;
     padding: 20px;
     background: var(--poke-yellow);
-    border-color: #B8860B;
-    color: #000;
-    font-size: 14px;
-    text-transform: uppercase;
+    border-bottom: 8px solid #B8860B;
+    color: #442200;
+    font-size: 18px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 0;
+}
+
+#clickBtn:active {
+    top: 5px;
+    border-bottom-width: 3px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+#controls {
+    display: flex;
+    gap: 8px;
     margin-bottom: 20px;
 }
 
-/* Shop (PokeMart) */
-#shop {
-    background: #fff;
-    border: 4px solid var(--poke-blue);
+#controls button {
+    flex: 1;
+    background: #666;
+    color: #fff;
+    border-bottom: 4px solid #333;
     border-radius: 8px;
     padding: 10px;
-}
-
-.shop-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 2px dashed #ccc;
-    font-size: 10px;
-}
-
-.shop-item:last-child {
-    border-bottom: none;
-}
-
-.shop-item button {
-    background: var(--poke-blue);
-    color: #fff;
-    border-color: #0056b3;
-}
-
-.shop-item button:disabled {
-    background: #ccc;
-    border-color: #999;
-    color: #666;
-}
-
-/* Trainers Tasks (Quests) */
-#quests {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.quest {
-    background: #fff;
-    border: 2px solid var(--text-dark);
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 10px;
-    display: flex;
-    justify-content: space-between;
-    /* To push button to right */
-    align-items: center;
-}
-
-.quest.completed {
-    background: #FFFACD;
-    border-color: gold;
-}
-
-.quest.claimed {
-    opacity: 0.5;
-    background: #ddd;
-}
-
-/* Bag (Inventory) */
-#inventory {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    background: #fff;
-    border: 4px solid var(--poke-green);
-    padding: 10px;
-    min-height: 50px;
-}
-
-.inv-item {
-    background: #eee;
-    border: 2px solid #aaa;
-    padding: 8px;
-    border-radius: 50%;
-    /* Pokeball shape-ish */
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 8px;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
-.inv-item:hover {
-    background: #fff;
-    border-color: var(--poke-red);
-}
-
-/* Logs */
-details {
-    background: #222;
-    color: #0f0;
-    /* Terminal look */
-    border: 4px solid #555;
-    padding: 10px;
-    font-family: monospace;
-    /* Keep log readable */
-}
-
-summary {
-    color: #fff;
-    cursor: pointer;
-}
-
-#log {
-    max-height: 150px;
-    overflow-y: auto;
-    font-size: 10px;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column-reverse;
-    /* Keep newest at bottom visually for log consistency */
-    border-top: 1px dashed #444;
-    padding-top: 5px;
-}
-
-#log div {
-    margin-bottom: 2px;
-}
-
-/* Animations */
-@keyframes flash {
-    0% {
-        background-color: white;
-    }
-
-    100% {
-        background-color: var(--screen-bg);
-    }
-}
-
-.flash {
-    animation: flash 0.2s;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border: 1px solid #555;
-}
-
-/* Event Icons */
-#event-icons {
+/* --- SIDEBAR DASHBOARD (COMPACT) --- */
+#team-sidebar {
+    width: 320px;
+    /* Reduced from 380px */
+    background: linear-gradient(to bottom, var(--poke-red) 70%, var(--poke-red-dark));
+    border-left: 6px solid var(--poke-red-dark);
+    padding: 20px;
+    box-shadow: -8px 0 25px rgba(0, 0, 0, 0.4);
     position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 0;
+    top: 0;
+    height: 100vh;
+    color: #fff;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+#team-slots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    background: #0a2e66;
+    /* Even deeper blue */
+    padding: 15px;
+    border-radius: 12px;
+    border: 3px solid #000;
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+    place-items: center;
+}
+
+.team-slot {
+    width: 110px;
+    height: 130px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.team-slot:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.team-slot .poke-sprite {
+    width: 70px;
+    height: 70px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+}
+
+.xp-container {
+    width: 80%;
+    height: 6px;
+    background: #111;
+    border-radius: 3px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.xp-bar {
+    height: 100%;
+    background: var(--poke-green);
+    box-shadow: 0 0 5px var(--poke-green);
+}
+
+.level-tag {
+    font-size: 7px;
+    margin-top: 4px;
+    color: var(--poke-yellow);
+}
+
+/* --- MODAL SYSTEM --- */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 60px;
     z-index: 1000;
 }
 
-.event-icon-wrapper {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    gap: 10px;
+#poke-modal {
+    background: #fff;
+    width: 380px;
+    padding: 30px;
+    border-radius: 20px;
+    border: 8px solid var(--poke-red);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+    animation: modalPopLeft 0.3s ease-out;
 }
 
-.event-icon {
-    font-size: 30px;
-    background: white;
-    padding: 10px;
-    border-radius: 50%;
-    border: 3px solid var(--poke-dark-red);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    animation: iconPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    flex-shrink: 0;
+@keyframes modalPopLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-.event-label {
-    background: rgba(0, 0, 0, 0.8);
-    color: var(--poke-yellow);
-    padding: 8px 12px;
-    border-radius: 4px;
+/* --- FOOTER & LOGS --- */
+#pokedex-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+details {
+    background: rgba(0, 0, 0, 0.92);
+    color: #0f0;
+    padding: 12px;
+    border-radius: 10px 10px 40px 10px;
+    margin-top: 15px;
     font-size: 10px;
-    white-space: nowrap;
-    border: 2px solid white;
-    animation: iconPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid #333;
 }
 
-@keyframes iconPop {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
+/* --- RED CHARACTER ANIMATION --- */
+#red-character {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-image: url('https://play.pokemonshowdown.com/sprites/trainers/red-gen1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+    pointer-events: none;
+    image-rendering: pixelated;
+    transform: translate(-50%, -50%);
+    /* Use CENTER as reference */
+}
 
-    100% {
-        transform: scale(1);
-        opacity: 1;
+/* Responsive */
+@media (max-width: 1400px) {
+    #game-wrapper {
+        padding-right: 340px;
     }
 }
 
-.event-icon.fade-out {
-    animation: iconFadeOut 0.5s forwards;
-}
-
-@keyframes iconFadeOut {
-    0% {
-        transform: scale(1);
-        opacity: 1;
+@media (max-width: 1000px) {
+    #game-wrapper {
+        flex-direction: column;
+        padding: 20px;
+        padding-right: 20px;
     }
 
-    100% {
-        transform: scale(0);
-        opacity: 0;
+    #team-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border: none;
     }
 }

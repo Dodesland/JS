@@ -1,47 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Click Quest</title>
+    <title>Click Quest - Pokedex Edition</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Click Quest</h1>
+    <div id="red-character"></div>
+    <div id="game-wrapper">
+        <div id="pokedex-power-btn" onclick="window.togglePower()"></div>
+        <main id="pokedex-case">
+            <!-- NAVIGATION HARDWARE -->
+            <nav id="pokedex-nav">
+                <button onclick="window.switchView('view-game')" class="nav-btn active">Main</button>
+                <button onclick="window.switchView('view-collection')" class="nav-btn">Collection</button>
+                <button onclick="window.switchView('view-tasks')" class="nav-btn">Tasks</button>
+            </nav>
 
-    <section>
-        <div>Total XP: <strong id="score">0</strong></div>
-        <div>¥: <strong id="coins">0</strong></div>
-        <div>Click Dmg: <strong id="clickPower">1</strong></div>
-        <div>Effectiveness: <strong id="multiplier">1.00</strong></div>
-        <div>Y/s: <strong id="autoIncome">0</strong> /s</div>
-        <div>Level: <strong id="levelXp">1 (0 / 100)</strong></div>
-        <div>Buffs: <span id="effects"></span></div>
-    </section>
+            <!-- VIEW: MAIN GAME -->
+            <div id="view-game" class="pokedex-view">
+                <h1>Click Quest</h1>
+                <section id="stats-screen">
+                    <div>Total XP: <strong id="score">0</strong></div>
+                    <div>¥: <strong id="coins">0</strong></div>
+                    <div>Click Dmg: <strong id="clickPower">1</strong></div>
+                    <div>Effectiveness: <strong id="multiplier">1.00</strong></div>
+                    <div>Y/s: <strong id="autoIncome">0</strong> /s</div>
+                    <div>Level: <strong id="levelXp">1 (0 / 100)</strong></div>
+                    <div>Buffs: <span id="effects"></span></div>
+                </section>
 
-    <div id="event-icons"></div>
+                <button id="clickBtn">CLICK</button>
 
-    <button id="clickBtn">CLICK</button>
-    <button id="saveBtn">Save</button>
-    <button id="loadBtn">Load</button>
-    <button id="resetBtn">Reset</button>
+                <div id="shop-section">
+                    <h2>PokeMart</h2>
+                    <div id="shop"></div>
+                </div>
+            </div>
 
-    <h2>PokeMart</h2>
-    <div id="shop"></div>
+            <!-- VIEW: COLLECTION -->
+            <div id="view-collection" class="pokedex-view hidden">
+                <h1>Pokemon Deck</h1>
+                <div id="collection-page-content">
+                    <div id="pokemon-collection"></div>
+                </div>
+            </div>
 
-    <h2>Trainer Tasks</h2>
-    <div id="quests"></div>
+            <!-- VIEW: TASKS -->
+            <div id="view-tasks" class="pokedex-view hidden">
+                <h1>Trainer Tasks</h1>
+                <div id="quests"></div>
+            </div>
 
-    <h2>Bag</h2>
-    <div id="inventory"></div>
+            <!-- PERMANENT HARDWARE CONTROLS -->
+            <div id="pokedex-footer">
+                <div id="controls">
+                    <button id="saveBtn">Save</button>
+                    <button id="loadBtn">Load</button>
+                    <button id="resetBtn">Reset</button>
+                    <button id="debugBtn">DEBUG</button>
+                </div>
 
-    <details>
-        <summary>Log</summary>
-        <div id="log"></div>
-    </details>
+                <details>
+                    <summary>System Log</summary>
+                    <div id="log"></div>
+                </details>
+            </div>
+        </main>
+
+        <!-- SIDEBAR (FIXED DASHBOARD) -->
+        <aside id="team-sidebar">
+            <div id="event-icons"></div>
+
+            <h2>Active Team</h2>
+            <div id="team-slots">
+                <!-- Team slots with XP bars -->
+                <div class="team-slot" data-index="0"></div>
+                <div class="team-slot" data-index="1"></div>
+                <div class="team-slot" data-index="2"></div>
+                <div class="team-slot" data-index="3"></div>
+                <div class="team-slot" data-index="4"></div>
+                <div class="team-slot" data-index="5"></div>
+            </div>
+
+            <div id="gacha-section">
+                <h2>Pokedex Gacha</h2>
+                <button id="gachaBtn">Pull Pokemon (<span id="gachaPrice">500</span> ¥)</button>
+            </div>
+
+            <div id="bag-section">
+                <h2>Inventory</h2>
+                <div id="inventory"></div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- POKEMON DETAILS MODAL -->
+    <div id="modal-overlay" class="hidden">
+        <div id="poke-modal">
+            <button id="close-modal">X</button>
+            <div id="modal-content">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
